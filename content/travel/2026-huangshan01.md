@@ -1,32 +1,27 @@
 ---
-title: "黄山｜黄山徒步大环线"
+title: "黄山｜登黄山天下无山，观止矣"
 date: 2026-07-10
 draft: false
-featured_image: "travel/2026-xian01/e715195c4554b85c3ecaddd2d381660c.jpg"
-location: "中国·西安"
+featured_image: "/travel/2026-huangshan01/MVIMG_20260710_075135.jpg"
+location: "中国·黄山"
 categories: ["旅行日记"]
 weight: 103
-tags: ["西安", "大雁塔", "大唐不夜城", "小雁塔", "钟楼", "回民街"]
-summary: "三天，从西电到大雁塔，从小雁塔到钟楼，在古都烟火中穿行。"
+tags: ["黄山", "西海大峡谷", "迎客松", "光明顶", "猴子观海", "步仙桥"]
+summary: "五岳归来不看山，黄山归来不看岳。"
 ---
 
-**5月29日**  
-上午到**西安电子科技大学**交流。午后去**大雁塔**，看玄奘译经处。晚上逛**大唐不夜城**，灯火如昼，人潮涌动。
+**7月9日**  
+头天晚上抵达黄山时正好赶上了黄山的蓝调时刻，还没上山这趟旅程就以及超额回本了。
 
-{{< figure src="/travel/2026-xian01/04606cf7281496cfb1c59aa4275d73f6.jpg" title="大唐不夜城" width="80%" >}}
+{{< figure src="/travel/2026-huangshan01/MVIMG_20260710_075135.jpg" title="黄山蓝调时刻" width="80%" >}}
 
 {{< figure src="/travel/2026-xian01/2f3b7fb96c97e2be98f9b843a6b37e5a.jpg" title="大雁塔" width="80%" >}}
 
-**5月30日**  
-清晨看**小雁塔**，塔身裂纹是千年的痕迹。随后逛**西安博物院**，唐代金器精致。下午转**小寨**，肉夹馍收尾。
+**7月10日**  
+早晨六点半首批进山，逛了12个小时逛完了黄山所有景点，不虚此行。
 
 {{< figure src="/travel/2026-xian01/30c57e91622a3cfb2a8e4b786e0ed262.jpg" title="子午路肉夹馍" width="80%" >}}
-
-**5月31日**  
-登**钟楼**，听整点钟声，俯瞰四方街。中午扎进**回民街**，肉夹馍、羊肉泡馍一路吃过去。
 
 {{< figure src="/travel/2026-xian01/f095c01c73e72dd326b0f469ce1a0aac.jpg" title="孙记羊肉泡馍" width="80%" >}}
 
 {{< figure src="/travel/2026-xian01/75b0a18b532602e58002f02c6024466b.jpg" title="茶话弄长安荔枝" width="80%" >}}
-
-三天太短，长安太厚。留点遗憾，下次再来。
