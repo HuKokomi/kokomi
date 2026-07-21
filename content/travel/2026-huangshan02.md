@@ -1,6 +1,6 @@
 ---
 title: "西递宏村 | 皖南山间的诗意栖居"
-date: 2026-07-011
+date: 2026-07-11
 draft: false
 featured_image: "travel/2026-huangshan02/a99c5c78d6eb9551bead6fe45fda7d0f.jpg"
 location: "中国·黄山"

@@ -68,8 +68,13 @@
     
     <main class="flex-grow">
         
-
 <style>
+     
+    :root {
+        --primary: #A31F34;
+        --primary-rgb: 163, 31, 52;
+    }
+
      
     .honor-fade-section {
         opacity: 0;
@@ -83,75 +88,190 @@
     }
 
      
+    .honor-grid-bg {
+        background-image: radial-gradient(circle, #ddd 1px, transparent 1px);
+        background-size: 24px 24px;
+        background-position: center;
+    }
+
+     
     @keyframes honorCardIn {
-        0% { opacity: 0; transform: translateY(30px) scale(0.95); }
+        0% { opacity: 0; transform: translateY(30px) scale(0.96); }
         100% { opacity: 1; transform: translateY(0) scale(1); }
     }
     .honor-card {
         animation: honorCardIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
-        transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1.2), box-shadow 0.4s;
+        transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1.2), 
+                    box-shadow 0.5s ease;
+        will-change: transform, box-shadow;
     }
      
-    .honor-card:nth-child(1) { animation-delay: 0.1s; }
-    .honor-card:nth-child(2) { animation-delay: 0.2s; }
-    .honor-card:nth-child(3) { animation-delay: 0.3s; }
-    .honor-card:nth-child(4) { animation-delay: 0.4s; }
-    .honor-card:nth-child(5) { animation-delay: 0.5s; }
-    .honor-card:nth-child(6) { animation-delay: 0.6s; }
+    .honor-card:nth-child(1) { animation-delay: 0.05s; }
+    .honor-card:nth-child(2) { animation-delay: 0.13s; }
+    .honor-card:nth-child(3) { animation-delay: 0.21s; }
+    .honor-card:nth-child(4) { animation-delay: 0.29s; }
+    .honor-card:nth-child(5) { animation-delay: 0.37s; }
+    .honor-card:nth-child(6) { animation-delay: 0.45s; }
+    .honor-card:nth-child(7) { animation-delay: 0.53s; }
+    .honor-card:nth-child(8) { animation-delay: 0.61s; }
+    .honor-card:nth-child(n+9) { animation-delay: 0.7s; }
 
      
     .honor-card:hover {
-        transform: translateY(-8px) rotateX(1deg) rotateY(-1deg);
-        box-shadow: 0 25px 40px -12px rgba(163, 31, 52, 0.25), 0 0 0 2px rgba(163, 31, 52, 0.3);
+        transform: translateY(-10px) rotateX(1.5deg) rotateY(-1deg);
+        box-shadow: 0 30px 45px -15px rgba(var(--primary-rgb), 0.35),
+                    0 0 0 2px rgba(var(--primary-rgb), 0.4);
+        z-index: 10;
     }
 
      
-    .honor-card .card-bg {
+    .honor-card .card-img-wrapper {
+        overflow: hidden;
+        height: 12rem;  
+    }
+    @media (min-width: 768px) {
+        .honor-card .card-img-wrapper {
+            height: 14rem;  
+        }
+    }
+    .honor-card .card-img {
         transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .honor-card:hover .card-bg {
-        transform: scale(1.15);
+    .honor-card:hover .card-img {
+        transform: scale(1.12);
+    }
+
+     
+    .honor-card .img-fallback {
+        background: #f1f5f9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #94a3b8;
     }
 
      
     .honor-card .card-info {
-        transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1.2);
+        position: relative;
+        background: white;
+        padding: 1rem 1.25rem 1.25rem;
+        overflow: hidden;  
+        transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1.2);
+    }
+     
+    .honor-card .card-info::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--primary);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1.2);
+        z-index: 0;
+    }
+    .honor-card:hover .card-info::before {
+        transform: scaleX(1);
     }
     .honor-card:hover .card-info {
-        transform: translateY(-8px);
+        transform: translateY(-4px);
+    }
+
+     
+    .honor-card .card-info > * {
+        position: relative;
+        z-index: 1;
+        transition: color 0.3s;
+    }
+     
+    .honor-card:hover .card-info h3,
+    .honor-card:hover .card-info .date-tag,
+    .honor-card:hover .card-info .view-detail {
+        color: white;
+    }
+    .honor-card .card-info h3 {
+        color: #1f2937;  
+        transition: color 0.3s, transform 0.4s ease;
+    }
+    .honor-card .card-info .date-tag {
+        color: #6b7280;
+        transition: color 0.3s;
+    }
+    .honor-card .card-info .view-detail {
+        color: var(--primary);
+        transition: color 0.3s;
+    }
+
+     
+    .honor-card:hover .card-info h3 {
+        transform: scale(1.03);
     }
 
      
     .honor-card .title-underline {
         width: 0;
         height: 2px;
-        background: #A31F34;
-        transition: width 0.5s ease;
+        background: white;
+        margin: 0.5rem 0 0.75rem;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1.2);
     }
     .honor-card:hover .title-underline {
-        width: 100%;
+        transform: scaleX(1);
     }
 
      
-    .honor-card:hover .date-tag {
-        color: rgba(255,255,255,1) !important;
-        text-shadow: 0 0 8px rgba(255,255,255,0.6);
+    .honor-card .view-detail {
+        opacity: 0;
+        transform: translateX(8px);
+        transition: opacity 0.35s ease, transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1.2), color 0.3s;
+    }
+    .honor-card:hover .view-detail {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    .honor-card .view-detail svg {
+        transition: transform 0.3s ease;
+    }
+    .honor-card:hover .view-detail svg {
+        transform: translateX(3px);
+    }
+
+     
+    .section-header {
+        position: relative;
+        padding-bottom: 1.5rem;
+        margin-bottom: 2.5rem;
+        border-bottom: 1px solid rgba(163, 31, 52, 0.15);
+    }
+    .section-header::after {
+        content: '';
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        width: 60px;
+        height: 3px;
+        background: var(--primary);
+        border-radius: 3px;
     }
 </style>
 
 
-<div class="max-w-[1800px] mx-auto px-4 py-12 honor-fade-section">
+<div class="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 py-12 honor-fade-section">
     
-    <div class="flex items-center justify-between border-b border-gray-200 pb-4 mb-10">
-        <div class="flex items-center gap-3">
-            <span class="w-1 h-8 bg-[#A31F34] rounded-full"></span>
+    <div class="section-header flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+        <div class="flex items-start gap-4">
+            <span class="w-1.5 h-10 bg-[--primary] rounded-full mt-1 hidden sm:block"></span>
             <div>
-                <span class="text-xs font-semibold text-[#A31F34] tracking-widest uppercase">Honors</span>
-                <h1 class="text-3xl lg:text-4xl font-serif font-bold text-gray-900">荣誉墙</h1>
-                <p class="text-sm text-gray-500 mt-1">记录每一份拼搏与认可</p>
+                <span class="text-xs font-semibold text-[--primary] tracking-[0.2em] uppercase">Honors & Awards</span>
+                <h1 class="text-3xl lg:text-4xl font-serif font-bold text-gray-900 mt-1">荣誉墙</h1>
+                <p class="text-sm text-gray-500 mt-2 max-w-xl">每一份拼搏与认可，都值得被岁月珍藏</p>
             </div>
         </div>
-        <a href="../" class="text-sm font-medium text-gray-400 hover:text-[#A31F34] transition-colors flex items-center group">
+        <a href="../" class="inline-flex items-center text-sm font-medium text-gray-500 hover:text-[--primary] transition-colors group self-end sm:self-auto">
             返回首页
             <svg class="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
         </a>
@@ -160,177 +280,395 @@
     
     
     
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            
-            
+        <div class="honor-grid-bg rounded-2xl p-4 sm:p-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 
-                
-                
-                <div class="honor-card group relative h-72 md:h-80 rounded-xl overflow-hidden shadow-md bg-gray-200">
                     
-                    <div class="card-bg absolute inset-0 bg-cover bg-center"
-                         style="background-image: url('https://hukokomi.github.io/honors/ff2526fa92cea81335820f34d7f48753.png');"
-                         onerror="this.onerror=null; this.style.backgroundImage='url(\'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect width=%22100%25%22 height=%22100%25%22 fill=%22%23e2e8f0%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%2394a3b8%22 font-size=%2218%22%3E%E8%8D%A3%E8%AA%89%3C/text%3E%3C/svg%3E\')';">
-                    </div>
                     
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
-                    
-                    <div class="card-info absolute bottom-0 left-0 right-0 p-5 text-white">
-                        <h3 class="text-lg font-serif font-bold leading-snug line-clamp-2 mb-1">第十九届&#34;挑战杯&#34;全国大学生课外学术科技作品竞赛&#34;人工智能&#43;&#34;专项赛特等奖</h3>
-                        <div class="title-underline mb-2"></div>
-                        <div class="flex items-center justify-between">
-                            <span class="date-tag text-xs text-white/70 transition-all duration-300">2024-12-01</span>
-                            <span class="text-xs font-medium flex items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-x-2 group-hover:translate-x-0 transition-transform">
-                                查看详情
-                                <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                            </span>
+
+                    <div class="honor-card group rounded-2xl overflow-hidden shadow-md bg-white flex flex-col">
+                        
+                        <div class="card-img-wrapper relative flex-shrink-0 bg-gray-100">
+                            <img 
+                                src="../honors/ff2526fa92cea81335820f34d7f48753.png" 
+                                alt="第十九届&#34;挑战杯&#34;全国大学生课外学术科技作品竞赛&#34;人工智能&#43;&#34;专项赛特等奖" 
+                                class="card-img absolute inset-0 w-full h-full object-cover"
+                                onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                            >
+                            <div class="img-fallback absolute inset-0 flex-col gap-2" style="display:none;">
+                                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 3v16l7-5 7 5V3H5z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4m0 4h.01"/>
+                                </svg>
+                                <span class="text-xs font-serif text-gray-400">荣誉证书</span>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <a href="https://hukokomi.github.io/kokomi.github.io/honors/tzb-202502/" class="absolute inset-0" aria-label="第十九届&#34;挑战杯&#34;全国大学生课外学术科技作品竞赛&#34;人工智能&#43;&#34;专项赛特等奖"></a>
-                </div>
-            
-                
-                
-                
-                <div class="honor-card group relative h-72 md:h-80 rounded-xl overflow-hidden shadow-md bg-gray-200">
-                    
-                    <div class="card-bg absolute inset-0 bg-cover bg-center"
-                         style="background-image: url('https://hukokomi.github.io/honors/f8e975e7-7286-4211-a83d-ae7e4fb38499.png');"
-                         onerror="this.onerror=null; this.style.backgroundImage='url(\'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect width=%22100%25%22 height=%22100%25%22 fill=%22%23e2e8f0%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%2394a3b8%22 font-size=%2218%22%3E%E8%8D%A3%E8%AA%89%3C/text%3E%3C/svg%3E\')';">
-                    </div>
-                    
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
-                    
-                    <div class="card-info absolute bottom-0 left-0 right-0 p-5 text-white">
-                        <h3 class="text-lg font-serif font-bold leading-snug line-clamp-2 mb-1">第十四届&#34;挑战杯&#34;中国大学生创业计划竞赛铜奖</h3>
-                        <div class="title-underline mb-2"></div>
-                        <div class="flex items-center justify-between">
-                            <span class="date-tag text-xs text-white/70 transition-all duration-300">2024-08-01</span>
-                            <span class="text-xs font-medium flex items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-x-2 group-hover:translate-x-0 transition-transform">
-                                查看详情
-                                <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                            </span>
+
+                        
+                        <div class="card-info flex flex-col flex-1">
+                            <h3 class="text-lg font-serif font-bold leading-snug line-clamp-2">第十九届&#34;挑战杯&#34;全国大学生课外学术科技作品竞赛&#34;人工智能&#43;&#34;专项赛特等奖</h3>
+                            <div class="title-underline"></div>
+                            <div class="flex items-center justify-between mt-auto pt-2">
+                                <span class="date-tag text-xs font-medium">2024-12-01</span>
+                                <span class="view-detail text-xs font-medium flex items-center">
+                                    查看详情
+                                    <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                                </span>
+                            </div>
                         </div>
+
+                        
+                        <a href="https://hukokomi/kokomi.github.io/honors/tzb-202502/" class="absolute inset-0 z-10" aria-label="第十九届&#34;挑战杯&#34;全国大学生课外学术科技作品竞赛&#34;人工智能&#43;&#34;专项赛特等奖"></a>
                     </div>
-                    
-                    <a href="https://hukokomi.github.io/kokomi.github.io/honors/tzb-202402/" class="absolute inset-0" aria-label="第十四届&#34;挑战杯&#34;中国大学生创业计划竞赛铜奖"></a>
-                </div>
-            
                 
-                
-                
-                <div class="honor-card group relative h-72 md:h-80 rounded-xl overflow-hidden shadow-md bg-gray-200">
                     
-                    <div class="card-bg absolute inset-0 bg-cover bg-center"
-                         style="background-image: url('https://hukokomi.github.io/honors/6e403c4c-30a9-4cc2-9e4a-863a0ac95043.png');"
-                         onerror="this.onerror=null; this.style.backgroundImage='url(\'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect width=%22100%25%22 height=%22100%25%22 fill=%22%23e2e8f0%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%2394a3b8%22 font-size=%2218%22%3E%E8%8D%A3%E8%AA%89%3C/text%3E%3C/svg%3E\')';">
-                    </div>
                     
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
-                    
-                    <div class="card-info absolute bottom-0 left-0 right-0 p-5 text-white">
-                        <h3 class="text-lg font-serif font-bold leading-snug line-clamp-2 mb-1">第十一届&#34;挑战杯&#34;安徽省大学生创业计划竞赛金奖</h3>
-                        <div class="title-underline mb-2"></div>
-                        <div class="flex items-center justify-between">
-                            <span class="date-tag text-xs text-white/70 transition-all duration-300">2024-12-01</span>
-                            <span class="text-xs font-medium flex items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-x-2 group-hover:translate-x-0 transition-transform">
-                                查看详情
-                                <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                            </span>
+
+                    <div class="honor-card group rounded-2xl overflow-hidden shadow-md bg-white flex flex-col">
+                        
+                        <div class="card-img-wrapper relative flex-shrink-0 bg-gray-100">
+                            <img 
+                                src="../honors/f8e975e7-7286-4211-a83d-ae7e4fb38499.png" 
+                                alt="第十四届&#34;挑战杯&#34;中国大学生创业计划竞赛铜奖" 
+                                class="card-img absolute inset-0 w-full h-full object-cover"
+                                onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                            >
+                            <div class="img-fallback absolute inset-0 flex-col gap-2" style="display:none;">
+                                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 3v16l7-5 7 5V3H5z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4m0 4h.01"/>
+                                </svg>
+                                <span class="text-xs font-serif text-gray-400">荣誉证书</span>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <a href="https://hukokomi.github.io/kokomi.github.io/honors/tzb-202401/" class="absolute inset-0" aria-label="第十一届&#34;挑战杯&#34;安徽省大学生创业计划竞赛金奖"></a>
-                </div>
-            
-                
-                
-                
-                <div class="honor-card group relative h-72 md:h-80 rounded-xl overflow-hidden shadow-md bg-gray-200">
-                    
-                    <div class="card-bg absolute inset-0 bg-cover bg-center"
-                         style="background-image: url('https://hukokomi.github.io/honors/e8d245ffa2ff83aca4409aa7464cdbdf.jpg');"
-                         onerror="this.onerror=null; this.style.backgroundImage='url(\'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect width=%22100%25%22 height=%22100%25%22 fill=%22%23e2e8f0%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%2394a3b8%22 font-size=%2218%22%3E%E8%8D%A3%E8%AA%89%3C/text%3E%3C/svg%3E\')';">
-                    </div>
-                    
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
-                    
-                    <div class="card-info absolute bottom-0 left-0 right-0 p-5 text-white">
-                        <h3 class="text-lg font-serif font-bold leading-snug line-clamp-2 mb-1">安徽师范大学三等奖学金&#34;劳动卫生奖&#34;</h3>
-                        <div class="title-underline mb-2"></div>
-                        <div class="flex items-center justify-between">
-                            <span class="date-tag text-xs text-white/70 transition-all duration-300">2025-10-01</span>
-                            <span class="text-xs font-medium flex items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-x-2 group-hover:translate-x-0 transition-transform">
-                                查看详情
-                                <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                            </span>
+
+                        
+                        <div class="card-info flex flex-col flex-1">
+                            <h3 class="text-lg font-serif font-bold leading-snug line-clamp-2">第十四届&#34;挑战杯&#34;中国大学生创业计划竞赛铜奖</h3>
+                            <div class="title-underline"></div>
+                            <div class="flex items-center justify-between mt-auto pt-2">
+                                <span class="date-tag text-xs font-medium">2024-08-01</span>
+                                <span class="view-detail text-xs font-medium flex items-center">
+                                    查看详情
+                                    <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                                </span>
+                            </div>
                         </div>
+
+                        
+                        <a href="https://hukokomi/kokomi.github.io/honors/tzb-202402/" class="absolute inset-0 z-10" aria-label="第十四届&#34;挑战杯&#34;中国大学生创业计划竞赛铜奖"></a>
                     </div>
-                    
-                    <a href="https://hukokomi.github.io/kokomi.github.io/honors/jxj-2025/" class="absolute inset-0" aria-label="安徽师范大学三等奖学金&#34;劳动卫生奖&#34;"></a>
-                </div>
-            
                 
-                
-                
-                <div class="honor-card group relative h-72 md:h-80 rounded-xl overflow-hidden shadow-md bg-gray-200">
                     
-                    <div class="card-bg absolute inset-0 bg-cover bg-center"
-                         style="background-image: url('https://hukokomi.github.io/honors/0ab9ac2a3fc9a92e5b1556819990f633.jpg');"
-                         onerror="this.onerror=null; this.style.backgroundImage='url(\'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect width=%22100%25%22 height=%22100%25%22 fill=%22%23e2e8f0%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%2394a3b8%22 font-size=%2218%22%3E%E8%8D%A3%E8%AA%89%3C/text%3E%3C/svg%3E\')';">
-                    </div>
                     
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
-                    
-                    <div class="card-info absolute bottom-0 left-0 right-0 p-5 text-white">
-                        <h3 class="text-lg font-serif font-bold leading-snug line-clamp-2 mb-1">安徽师范大学三等奖学金&#34;科技活动奖&#34;</h3>
-                        <div class="title-underline mb-2"></div>
-                        <div class="flex items-center justify-between">
-                            <span class="date-tag text-xs text-white/70 transition-all duration-300">2024-10-01</span>
-                            <span class="text-xs font-medium flex items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-x-2 group-hover:translate-x-0 transition-transform">
-                                查看详情
-                                <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                            </span>
+
+                    <div class="honor-card group rounded-2xl overflow-hidden shadow-md bg-white flex flex-col">
+                        
+                        <div class="card-img-wrapper relative flex-shrink-0 bg-gray-100">
+                            <img 
+                                src="../honors/6e403c4c-30a9-4cc2-9e4a-863a0ac95043.png" 
+                                alt="第十一届&#34;挑战杯&#34;安徽省大学生创业计划竞赛金奖" 
+                                class="card-img absolute inset-0 w-full h-full object-cover"
+                                onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                            >
+                            <div class="img-fallback absolute inset-0 flex-col gap-2" style="display:none;">
+                                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 3v16l7-5 7 5V3H5z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4m0 4h.01"/>
+                                </svg>
+                                <span class="text-xs font-serif text-gray-400">荣誉证书</span>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <a href="https://hukokomi.github.io/kokomi.github.io/honors/jxj-2024/" class="absolute inset-0" aria-label="安徽师范大学三等奖学金&#34;科技活动奖&#34;"></a>
-                </div>
-            
-                
-                
-                
-                <div class="honor-card group relative h-72 md:h-80 rounded-xl overflow-hidden shadow-md bg-gray-200">
-                    
-                    <div class="card-bg absolute inset-0 bg-cover bg-center"
-                         style="background-image: url('https://hukokomi.github.io/honors/ba34008f385016894509de7f7f97d0fc.jpg');"
-                         onerror="this.onerror=null; this.style.backgroundImage='url(\'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect width=%22100%25%22 height=%22100%25%22 fill=%22%23e2e8f0%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%2394a3b8%22 font-size=%2218%22%3E%E8%8D%A3%E8%AA%89%3C/text%3E%3C/svg%3E\')';">
-                    </div>
-                    
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
-                    
-                    <div class="card-info absolute bottom-0 left-0 right-0 p-5 text-white">
-                        <h3 class="text-lg font-serif font-bold leading-snug line-clamp-2 mb-1">安徽师范大学三等奖学金&#34;精神文明奖&#34;</h3>
-                        <div class="title-underline mb-2"></div>
-                        <div class="flex items-center justify-between">
-                            <span class="date-tag text-xs text-white/70 transition-all duration-300">2023-10-01</span>
-                            <span class="text-xs font-medium flex items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-x-2 group-hover:translate-x-0 transition-transform">
-                                查看详情
-                                <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                            </span>
+
+                        
+                        <div class="card-info flex flex-col flex-1">
+                            <h3 class="text-lg font-serif font-bold leading-snug line-clamp-2">第十一届&#34;挑战杯&#34;安徽省大学生创业计划竞赛金奖</h3>
+                            <div class="title-underline"></div>
+                            <div class="flex items-center justify-between mt-auto pt-2">
+                                <span class="date-tag text-xs font-medium">2024-12-01</span>
+                                <span class="view-detail text-xs font-medium flex items-center">
+                                    查看详情
+                                    <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                                </span>
+                            </div>
                         </div>
+
+                        
+                        <a href="https://hukokomi/kokomi.github.io/honors/tzb-202401/" class="absolute inset-0 z-10" aria-label="第十一届&#34;挑战杯&#34;安徽省大学生创业计划竞赛金奖"></a>
                     </div>
+                
                     
-                    <a href="https://hukokomi.github.io/kokomi.github.io/honors/jxj-2023/" class="absolute inset-0" aria-label="安徽师范大学三等奖学金&#34;精神文明奖&#34;"></a>
-                </div>
-            
+                    
+
+                    <div class="honor-card group rounded-2xl overflow-hidden shadow-md bg-white flex flex-col">
+                        
+                        <div class="card-img-wrapper relative flex-shrink-0 bg-gray-100">
+                            <img 
+                                src="../honors/28f9b13d839cbb5129a771b3ccd9b482.png" 
+                                alt="第十三届&#34;青苗杯&#34;竞赛项目资本对接活动银奖" 
+                                class="card-img absolute inset-0 w-full h-full object-cover"
+                                onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                            >
+                            <div class="img-fallback absolute inset-0 flex-col gap-2" style="display:none;">
+                                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 3v16l7-5 7 5V3H5z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4m0 4h.01"/>
+                                </svg>
+                                <span class="text-xs font-serif text-gray-400">荣誉证书</span>
+                            </div>
+                        </div>
+
+                        
+                        <div class="card-info flex flex-col flex-1">
+                            <h3 class="text-lg font-serif font-bold leading-snug line-clamp-2">第十三届&#34;青苗杯&#34;竞赛项目资本对接活动银奖</h3>
+                            <div class="title-underline"></div>
+                            <div class="flex items-center justify-between mt-auto pt-2">
+                                <span class="date-tag text-xs font-medium">2026-06-01</span>
+                                <span class="view-detail text-xs font-medium flex items-center">
+                                    查看详情
+                                    <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                                </span>
+                            </div>
+                        </div>
+
+                        
+                        <a href="https://hukokomi/kokomi.github.io/honors/qmb2026/" class="absolute inset-0 z-10" aria-label="第十三届&#34;青苗杯&#34;竞赛项目资本对接活动银奖"></a>
+                    </div>
+                
+                    
+                    
+
+                    <div class="honor-card group rounded-2xl overflow-hidden shadow-md bg-white flex flex-col">
+                        
+                        <div class="card-img-wrapper relative flex-shrink-0 bg-gray-100">
+                            <img 
+                                src="../honors/826045a827206fd6c4ce4d569bb3c43d.jpg" 
+                                alt="安徽师范大学优秀共青团干部" 
+                                class="card-img absolute inset-0 w-full h-full object-cover"
+                                onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                            >
+                            <div class="img-fallback absolute inset-0 flex-col gap-2" style="display:none;">
+                                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 3v16l7-5 7 5V3H5z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4m0 4h.01"/>
+                                </svg>
+                                <span class="text-xs font-serif text-gray-400">荣誉证书</span>
+                            </div>
+                        </div>
+
+                        
+                        <div class="card-info flex flex-col flex-1">
+                            <h3 class="text-lg font-serif font-bold leading-snug line-clamp-2">安徽师范大学优秀共青团干部</h3>
+                            <div class="title-underline"></div>
+                            <div class="flex items-center justify-between mt-auto pt-2">
+                                <span class="date-tag text-xs font-medium">2025-05-04</span>
+                                <span class="view-detail text-xs font-medium flex items-center">
+                                    查看详情
+                                    <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                                </span>
+                            </div>
+                        </div>
+
+                        
+                        <a href="https://hukokomi/kokomi.github.io/honors/zs-1001/" class="absolute inset-0 z-10" aria-label="安徽师范大学优秀共青团干部"></a>
+                    </div>
+                
+                    
+                    
+
+                    <div class="honor-card group rounded-2xl overflow-hidden shadow-md bg-white flex flex-col">
+                        
+                        <div class="card-img-wrapper relative flex-shrink-0 bg-gray-100">
+                            <img 
+                                src="../honors/615753121e52bfab3f671d8fe516f5e2.jpg" 
+                                alt="安徽师范大学优秀实习学生" 
+                                class="card-img absolute inset-0 w-full h-full object-cover"
+                                onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                            >
+                            <div class="img-fallback absolute inset-0 flex-col gap-2" style="display:none;">
+                                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 3v16l7-5 7 5V3H5z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4m0 4h.01"/>
+                                </svg>
+                                <span class="text-xs font-serif text-gray-400">荣誉证书</span>
+                            </div>
+                        </div>
+
+                        
+                        <div class="card-info flex flex-col flex-1">
+                            <h3 class="text-lg font-serif font-bold leading-snug line-clamp-2">安徽师范大学优秀实习学生</h3>
+                            <div class="title-underline"></div>
+                            <div class="flex items-center justify-between mt-auto pt-2">
+                                <span class="date-tag text-xs font-medium">2026-02-01</span>
+                                <span class="view-detail text-xs font-medium flex items-center">
+                                    查看详情
+                                    <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                                </span>
+                            </div>
+                        </div>
+
+                        
+                        <a href="https://hukokomi/kokomi.github.io/honors/zs-1002/" class="absolute inset-0 z-10" aria-label="安徽师范大学优秀实习学生"></a>
+                    </div>
+                
+                    
+                    
+
+                    <div class="honor-card group rounded-2xl overflow-hidden shadow-md bg-white flex flex-col">
+                        
+                        <div class="card-img-wrapper relative flex-shrink-0 bg-gray-100">
+                            <img 
+                                src="../honors/fe1c654a1952aaf5fe0803555989a079.jpg" 
+                                alt="安徽师范大学优秀导生" 
+                                class="card-img absolute inset-0 w-full h-full object-cover"
+                                onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                            >
+                            <div class="img-fallback absolute inset-0 flex-col gap-2" style="display:none;">
+                                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 3v16l7-5 7 5V3H5z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4m0 4h.01"/>
+                                </svg>
+                                <span class="text-xs font-serif text-gray-400">荣誉证书</span>
+                            </div>
+                        </div>
+
+                        
+                        <div class="card-info flex flex-col flex-1">
+                            <h3 class="text-lg font-serif font-bold leading-snug line-clamp-2">安徽师范大学优秀导生</h3>
+                            <div class="title-underline"></div>
+                            <div class="flex items-center justify-between mt-auto pt-2">
+                                <span class="date-tag text-xs font-medium">2024-11-01</span>
+                                <span class="view-detail text-xs font-medium flex items-center">
+                                    查看详情
+                                    <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                                </span>
+                            </div>
+                        </div>
+
+                        
+                        <a href="https://hukokomi/kokomi.github.io/honors/zs-1003/" class="absolute inset-0 z-10" aria-label="安徽师范大学优秀导生"></a>
+                    </div>
+                
+                    
+                    
+
+                    <div class="honor-card group rounded-2xl overflow-hidden shadow-md bg-white flex flex-col">
+                        
+                        <div class="card-img-wrapper relative flex-shrink-0 bg-gray-100">
+                            <img 
+                                src="../honors/e8d245ffa2ff83aca4409aa7464cdbdf.jpg" 
+                                alt="安徽师范大学三等奖学金&#34;劳动卫生奖&#34;" 
+                                class="card-img absolute inset-0 w-full h-full object-cover"
+                                onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                            >
+                            <div class="img-fallback absolute inset-0 flex-col gap-2" style="display:none;">
+                                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 3v16l7-5 7 5V3H5z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4m0 4h.01"/>
+                                </svg>
+                                <span class="text-xs font-serif text-gray-400">荣誉证书</span>
+                            </div>
+                        </div>
+
+                        
+                        <div class="card-info flex flex-col flex-1">
+                            <h3 class="text-lg font-serif font-bold leading-snug line-clamp-2">安徽师范大学三等奖学金&#34;劳动卫生奖&#34;</h3>
+                            <div class="title-underline"></div>
+                            <div class="flex items-center justify-between mt-auto pt-2">
+                                <span class="date-tag text-xs font-medium">2025-10-01</span>
+                                <span class="view-detail text-xs font-medium flex items-center">
+                                    查看详情
+                                    <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                                </span>
+                            </div>
+                        </div>
+
+                        
+                        <a href="https://hukokomi/kokomi.github.io/honors/jxj-2025/" class="absolute inset-0 z-10" aria-label="安徽师范大学三等奖学金&#34;劳动卫生奖&#34;"></a>
+                    </div>
+                
+                    
+                    
+
+                    <div class="honor-card group rounded-2xl overflow-hidden shadow-md bg-white flex flex-col">
+                        
+                        <div class="card-img-wrapper relative flex-shrink-0 bg-gray-100">
+                            <img 
+                                src="../honors/0ab9ac2a3fc9a92e5b1556819990f633.jpg" 
+                                alt="安徽师范大学三等奖学金&#34;科技活动奖&#34;" 
+                                class="card-img absolute inset-0 w-full h-full object-cover"
+                                onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                            >
+                            <div class="img-fallback absolute inset-0 flex-col gap-2" style="display:none;">
+                                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 3v16l7-5 7 5V3H5z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4m0 4h.01"/>
+                                </svg>
+                                <span class="text-xs font-serif text-gray-400">荣誉证书</span>
+                            </div>
+                        </div>
+
+                        
+                        <div class="card-info flex flex-col flex-1">
+                            <h3 class="text-lg font-serif font-bold leading-snug line-clamp-2">安徽师范大学三等奖学金&#34;科技活动奖&#34;</h3>
+                            <div class="title-underline"></div>
+                            <div class="flex items-center justify-between mt-auto pt-2">
+                                <span class="date-tag text-xs font-medium">2024-10-01</span>
+                                <span class="view-detail text-xs font-medium flex items-center">
+                                    查看详情
+                                    <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                                </span>
+                            </div>
+                        </div>
+
+                        
+                        <a href="https://hukokomi/kokomi.github.io/honors/jxj-2024/" class="absolute inset-0 z-10" aria-label="安徽师范大学三等奖学金&#34;科技活动奖&#34;"></a>
+                    </div>
+                
+                    
+                    
+
+                    <div class="honor-card group rounded-2xl overflow-hidden shadow-md bg-white flex flex-col">
+                        
+                        <div class="card-img-wrapper relative flex-shrink-0 bg-gray-100">
+                            <img 
+                                src="../honors/ba34008f385016894509de7f7f97d0fc.jpg" 
+                                alt="安徽师范大学三等奖学金&#34;精神文明奖&#34;" 
+                                class="card-img absolute inset-0 w-full h-full object-cover"
+                                onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                            >
+                            <div class="img-fallback absolute inset-0 flex-col gap-2" style="display:none;">
+                                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 3v16l7-5 7 5V3H5z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4m0 4h.01"/>
+                                </svg>
+                                <span class="text-xs font-serif text-gray-400">荣誉证书</span>
+                            </div>
+                        </div>
+
+                        
+                        <div class="card-info flex flex-col flex-1">
+                            <h3 class="text-lg font-serif font-bold leading-snug line-clamp-2">安徽师范大学三等奖学金&#34;精神文明奖&#34;</h3>
+                            <div class="title-underline"></div>
+                            <div class="flex items-center justify-between mt-auto pt-2">
+                                <span class="date-tag text-xs font-medium">2023-10-01</span>
+                                <span class="view-detail text-xs font-medium flex items-center">
+                                    查看详情
+                                    <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                                </span>
+                            </div>
+                        </div>
+
+                        
+                        <a href="https://hukokomi/kokomi.github.io/honors/jxj-2023/" class="absolute inset-0 z-10" aria-label="安徽师范大学三等奖学金&#34;精神文明奖&#34;"></a>
+                    </div>
+                
+            </div>
         </div>
     
 </div>
 
 <script>
-    
     document.addEventListener('DOMContentLoaded', function() {
         const observer = new IntersectionObserver((entries, obs) => {
             entries.forEach(entry => {
@@ -339,11 +677,10 @@
                     obs.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.15 });
+        }, { threshold: 0.1 });
         document.querySelectorAll('.honor-fade-section').forEach(el => observer.observe(el));
     });
 </script>
-
 
     </main>
 
