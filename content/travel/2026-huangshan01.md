@@ -5,7 +5,7 @@ draft: false
 featured_image: "travel/2026-huangshan01/MVIMG_20260710_075135.jpg"
 location: "中国·黄山"
 categories: ["旅行日记"]
-weight: -20260710
+weight: 260710
 tags: ["黄山", "西海大峡谷", "迎客松", "光明顶", "猴子观海", "步仙桥"]
 summary: "五岳归来不看山，黄山归来不看岳。"
 ---
