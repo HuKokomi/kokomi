@@ -29,7 +29,6 @@
         box-shadow: 0 20px 30px -10px rgba(163, 31, 52, 0.3), 0 0 0 2px rgba(163, 31, 52, 0.4);
     }
 
-    /* 图片缓慢放大 */
     .travel-card .card-img {
         transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
@@ -37,7 +36,6 @@
         transform: scale(1.1);
     }
 
-    /* 地点标签 */
     .location-tag {
         background: rgba(163, 31, 52, 0.1);
         color: #A31F34;
@@ -49,7 +47,6 @@
         color: white;
     }
 
-    /* 查看更多按钮渐显 */
     .read-more {
         opacity: 0;
         transform: translateX(10px);
@@ -61,7 +58,6 @@
     }
 </style>
 
-<!-- 顶部横幅 -->
 <div class="travel-header py-20 px-4 text-center text-white">
     <div class="max-w-4xl mx-auto">
         <span class="text-sm font-semibold tracking-widest uppercase opacity-70">Travel Diary</span>
@@ -72,9 +68,8 @@
     </div>
 </div>
 
-<!-- 卡片列表 -->
 <div class="max-w-[1800px] mx-auto px-4 py-16">
-    {{ $pages := .Pages.ByWeight.Reverse }}
+    {{ $pages := sort .Pages "Params.weight" "desc" }}
     {{ if $pages }}
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {{ range $pages }}
@@ -82,21 +77,18 @@
         {{ $img = replaceRE "^.*?/static/" "/" $img }}
         {{ $img = $img | relURL }}
         <div class="travel-card bg-white rounded-xl overflow-hidden shadow-md flex flex-col">
-            <!-- 图片区域 -->
             <div class="relative h-56 overflow-hidden">
                 <div class="card-img absolute inset-0 bg-cover bg-center"
                      style="background-image: url('{{ $img }}');"
                      onerror="this.onerror=null; this.style.backgroundImage='url(\'data:image/svg+xml,...\')';">
                 </div>
                 <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
-                <!-- 地点标签悬浮于图片底部 -->
                 {{ with .Params.location }}
                 <div class="absolute bottom-3 left-3 location-tag text-xs font-medium px-2 py-1 rounded-full">
                     📍 {{ . }}
                 </div>
                 {{ end }}
             </div>
-            <!-- 文字内容 -->
             <div class="p-5 flex flex-col flex-1">
                 <span class="text-xs text-gray-400">{{ .Date.Format "2006-01-02" }}</span>
                 <h3 class="text-xl font-serif font-bold text-gray-900 mt-2 line-clamp-2">{{ .Title }}</h3>
