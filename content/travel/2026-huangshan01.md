@@ -2,7 +2,7 @@
 title: "黄山｜登黄山天下无山，观止矣"
 date: 2026-07-10
 draft: false
-featured_image: "/travel/2026-huangshan01/MVIMG_20260710_075135.jpg"
+featured_image: "travel/2026-huangshan01/MVIMG_20260710_075135.jpg"
 location: "中国·黄山"
 categories: ["旅行日记"]
 weight: 103
