@@ -1,5 +1,5 @@
 ---
-title: "英雄之城 | 豫章故郡洪都新府"
+title: "皖赣线Day1-2 | 英雄之城"
 date: 2026-07-08
 draft: false
 featured_image: "travel/2026-nanchang01/8b9def194a3be892b516f8fe3683e9c6.jpg"
@@ -7,7 +7,7 @@ location: "中国·南昌"
 categories: ["旅行日记"]
 weight: 260708
 tags: ["八一广场", "八一起义纪念馆", "秋水广场", "江西省博物馆", "滕王阁"]
-summary: "\"有所不为\"守住城市灵魂，生出全新辨识度"
+summary: "豫章故郡洪都新府"
 ---
 
 
