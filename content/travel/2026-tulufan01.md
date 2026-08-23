@@ -46,6 +46,6 @@ summary: "回望丝路昔日繁华,遨游今日绚烂多彩的画卷。"
 
 在新疆的最后一天吃到的椒麻鸡拌面真的惊艳到了，非常好吃。
 
-{{< figure src="/travel/2026-tulufan01/MVIMG_20260819_190307.jpg"" title="椒麻鸡拌面" width="80%" >}}
+{{< figure src="/travel/2026-tulufan01/MVIMG_20260819_190307.jpg" title="椒麻鸡拌面" width="80%" >}}
 
 {{< figure src="/travel/2026-tulufan01/MVIMG_20260819_204555.jpg" title="吐鲁番北站日落" width="80%" >}}
