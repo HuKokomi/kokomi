@@ -5,7 +5,7 @@ draft: false
 featured_image: "travel/2026-huangshan01/6f1d4a3536b5a6bb546117cb9ba9e081.jpg"
 location: "中国·黄山"
 categories: ["旅行日记"]
-weight: 260710
+weight: 1000003
 tags: ["黄山", "西海大峡谷", "迎客松", "光明顶", "猴子观海", "步仙桥"]
 summary: "登黄山天下无山，观止矣"
 ---

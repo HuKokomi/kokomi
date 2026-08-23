@@ -278,14 +278,7 @@
                     </div>
                     <!-- 渐变遮罩 (加深底部) -->
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
-                    
-                    {{/* 修改点3：置顶标签（右上角） */}}
-                    {{ if .Params.weight }}
-                    <div class="absolute top-3 right-3 z-20 bg-gradient-to-r from-yellow-400 to-yellow-500 text-gray-900 text-xs font-bold px-3 py-1 rounded-full shadow-lg flex items-center gap-1">
-                        <span>📌</span> 置顶
-                    </div>
-                    {{ end }}
-
+                
                     <!-- 底部文字信息 (可上移层) -->
                     <div class="card-info absolute bottom-0 left-0 right-0 p-5 text-white">
                         <h3 class="text-lg font-serif font-bold leading-snug line-clamp-2 mb-1">{{ .Title }}</h3>

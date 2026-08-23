@@ -98,12 +98,7 @@
                      onerror="this.onerror=null; this.style.backgroundImage='url(\'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect width=%22100%25%22 height=%22100%25%22 fill=%22%23e2e8f0%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%2394a3b8%22 font-size=%2218%22%3E%E6%97%85%E8%A1%8C%3C/text%3E%3C/svg%3E\')';">
                 </div>
                 <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
-                
-                {{/* 修改点3：置顶标签（右上角） */}}
-                {{ if .Params.weight }}
-                <div class="absolute top-3 right-3 z-20 bg-gradient-to-r from-yellow-400 to-yellow-500 text-gray-900 text-xs font-bold px-3 py-1 rounded-full shadow-lg flex items-center gap-1">
-                    <span>📌</span> 置顶
-                </div>
+
                 {{ end }}
 
                 {{ with .Params.location }}
