@@ -2,6 +2,7 @@
 title: "皖赣线Day4｜黄山"
 date: 2026-07-10
 draft: false
+sticky: true
 featured_image: "travel/2026-huangshan01/6f1d4a3536b5a6bb546117cb9ba9e081.jpg"
 location: "中国·黄山"
 categories: ["旅行日记"]

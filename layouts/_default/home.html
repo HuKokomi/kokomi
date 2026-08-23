@@ -232,15 +232,7 @@
             color: rgba(255,255,255,1) !important;
             text-shadow: 0 0 8px rgba(255,255,255,0.6);
         }
-
-        /* 置顶卡片特殊样式（金色描边） */
-        .travel-card.sticky-card {
-            border: 2px solid #FBBF24;
-            box-shadow: 0 8px 25px -8px rgba(251, 191, 36, 0.3);
-        }
-        .travel-card.sticky-card:hover {
-            box-shadow: 0 25px 40px -12px rgba(251, 191, 36, 0.4), 0 0 0 2px #FBBF24;
-        }
+        /* 已移除所有 sticky-card 相关样式 */
     </style>
 
     <div class="section-block mb-16 fade-in-section">
@@ -258,10 +250,16 @@
             </a>
         </div>
 
-        {{/* 修改点1：获取所有旅行页面，按 weight 降序（绝对值大的在前），再取前4 */}}
+        {{/* 获取所有旅行页面，先按 sticky 分组，再按 weight 降序 */}}
         {{ $allTravel := where .Site.RegularPages "Section" "travel" }}
-        {{ $sortedTravel := sort $allTravel "Params.weight" "desc" }}
-        {{ $travelPages := first 4 $sortedTravel }}
+        {{/* 分成两组：置顶和非置顶 */}}
+        {{ $stickyPages := where $allTravel "Params.sticky" true }}
+        {{ $nonStickyPages := where $allTravel "Params.sticky" "!=" true }}
+        {{/* 各自按 weight 降序排序 */}}
+        {{ $sortedSticky := sort $stickyPages "Params.weight" "desc" }}
+        {{ $sortedNonSticky := sort $nonStickyPages "Params.weight" "desc" }}
+        {{/* 合并，置顶在前 */}}
+        {{ $travelPages := $sortedSticky | append $sortedNonSticky | first 4 }}
 
         {{ if $travelPages }}
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -269,8 +267,7 @@
                 {{ $img := .Params.featured_image | default "/images/default-travel.jpg" }}
                 {{ $img = replaceRE "^.*?/static/" "/" $img }}
                 {{ $img = $img | relURL }}
-                {{/* 修改点2：如果有 weight 字段，增加 sticky-card 类 */}}
-                <div class="travel-card group relative h-72 md:h-80 rounded-xl overflow-hidden shadow-md bg-gray-200 {{ if .Params.weight }}sticky-card{{ end }}">
+                <div class="travel-card group relative h-72 md:h-80 rounded-xl overflow-hidden shadow-md bg-gray-200">
                     <!-- 背景图 (卡片缩放层) -->
                     <div class="card-bg absolute inset-0 bg-cover bg-center"
                         style="background-image: url('{{ $img }}');"
@@ -278,7 +275,8 @@
                     </div>
                     <!-- 渐变遮罩 (加深底部) -->
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
-                
+                    <!-- 已移除置顶标签 -->
+
                     <!-- 底部文字信息 (可上移层) -->
                     <div class="card-info absolute bottom-0 left-0 right-0 p-5 text-white">
                         <h3 class="text-lg font-serif font-bold leading-snug line-clamp-2 mb-1">{{ .Title }}</h3>
