@@ -1,0 +1,180 @@
+{{ define "main" }}
+<style>
+    /* 整体容器 */
+    .work-list-container {
+        max-width: 1100px;
+        margin: 2rem auto;
+        padding: 0 1.5rem;
+    }
+
+    /* 搜索框区域 */
+    .search-section {
+        margin-bottom: 2.5rem;
+    }
+    .search-section input {
+        width: 100%;
+        max-width: 500px;
+        padding: 0.8rem 1.2rem;
+        border: 2px solid #e2e8f0;
+        border-radius: 50px;
+        font-size: 1rem;
+        outline: none;
+        transition: border 0.2s;
+        background: #f7fafc;
+    }
+    .search-section input:focus {
+        border-color: #A31F34;
+        background: white;
+        box-shadow: 0 0 0 3px rgba(163, 31, 52, 0.1);
+    }
+    .search-section input::placeholder {
+        color: #a0aec0;
+    }
+
+    /* 条目卡片（左文右图） */
+    .work-item {
+        display: flex;
+        align-items: center;
+        background: white;
+        border-radius: 1rem;
+        padding: 1.2rem 1.5rem;
+        margin-bottom: 1.2rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        border: 1px solid #edf2f7;
+        transition: all 0.25s ease;
+        cursor: pointer;
+        text-decoration: none;
+        color: inherit;
+    }
+    .work-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px -6px rgba(0,0,0,0.08);
+        border-color: #A31F34;
+    }
+    .work-item .text-area {
+        flex: 1;
+        padding-right: 1.5rem;
+    }
+    .work-item .text-area h3 {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #1a202c;
+        margin: 0 0 0.3rem 0;
+        line-height: 1.4;
+    }
+    .work-item .text-area p {
+        font-size: 0.95rem;
+        color: #4a5568;
+        margin: 0;
+        line-height: 1.6;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    .work-item .thumb {
+        flex-shrink: 0;
+        width: 100px;
+        height: 100px;
+        border-radius: 0.75rem;
+        overflow: hidden;
+        background: #edf2f7;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        color: #a0aec0;
+    }
+    .work-item .thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    /* 空状态提示 */
+    .no-results {
+        text-align: center;
+        padding: 3rem 0;
+        color: #a0aec0;
+        display: none;
+    }
+
+    /* 响应式 */
+    @media (max-width: 640px) {
+        .work-item {
+            flex-direction: column-reverse;
+            align-items: stretch;
+            padding: 1rem;
+        }
+        .work-item .text-area {
+            padding-right: 0;
+            padding-top: 0.8rem;
+        }
+        .work-item .thumb {
+            width: 100%;
+            height: 160px;
+        }
+        .search-section input {
+            max-width: 100%;
+        }
+    }
+</style>
+
+<div class="work-list-container">
+    <!-- 搜索框 -->
+    <div class="search-section">
+        <input type="text" id="searchInput" placeholder="🔍 搜索资源标题或简介..." autocomplete="off">
+    </div>
+
+    <!-- 列表 -->
+    <div id="workList">
+        {{ $pages := where .Pages "Kind" "page" }}
+        {{ $sorted := sort $pages "Date" "desc" }} <!-- 可按 weight 或 Date 调整 -->
+        {{ range $sorted }}
+        {{ $thumb := .Params.featured_image | default "" }}
+        {{ $thumb = $thumb | relURL }}
+        <a href="{{ .Permalink }}" class="work-item" data-title="{{ .Title }}" data-summary="{{ .Summary | plainify }}">
+            <div class="text-area">
+                <h3>{{ .Title }}</h3>
+                <p>{{ .Summary | default "点击查看详情" }}</p>
+            </div>
+            <div class="thumb">
+                {{ if $thumb }}
+                <img src="{{ $thumb }}" alt="{{ .Title }}" loading="lazy">
+                {{ else }}
+                📄 <!-- 占位图标 -->
+                {{ end }}
+            </div>
+        </a>
+        {{ end }}
+    </div>
+    <div id="noResults" class="no-results">没有找到匹配的资源</div>
+</div>
+
+<!-- 搜索过滤脚本 -->
+<script>
+    (function() {
+        const input = document.getElementById('searchInput');
+        const items = document.querySelectorAll('.work-item');
+        const noResults = document.getElementById('noResults');
+
+        function filter() {
+            const keyword = input.value.trim().toLowerCase();
+            let found = false;
+            items.forEach(item => {
+                const title = item.dataset.title.toLowerCase();
+                const summary = item.dataset.summary.toLowerCase();
+                const match = title.includes(keyword) || summary.includes(keyword);
+                item.style.display = match ? '' : 'none';
+                if (match) found = true;
+            });
+            noResults.style.display = found ? 'none' : 'block';
+        }
+
+        input.addEventListener('input', filter);
+        // 初始显示全部
+        filter();
+    })();
+</script>
+{{ end }}

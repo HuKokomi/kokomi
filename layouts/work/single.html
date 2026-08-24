@@ -1,0 +1,63 @@
+{{ define "main" }}
+<style>
+    .work-single {
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 0 1.5rem;
+    }
+    .work-single h1 {
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: #1a202c;
+        margin-bottom: 0.5rem;
+    }
+    .work-single .meta {
+        color: #718096;
+        font-size: 0.9rem;
+        border-bottom: 1px solid #e2e8f0;
+        padding-bottom: 1rem;
+        margin-bottom: 1.5rem;
+    }
+    .work-single .content {
+        font-size: 1.05rem;
+        line-height: 1.8;
+        color: #2d3748;
+    }
+    .work-single .download-btn {
+        display: inline-block;
+        margin-top: 2rem;
+        background: #A31F34;
+        color: white;
+        padding: 0.75rem 2rem;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: background 0.2s;
+    }
+    .work-single .download-btn:hover {
+        background: #7a1627;
+    }
+    .work-single .download-btn svg {
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 0.5rem;
+    }
+</style>
+
+<div class="work-single">
+    <h1>{{ .Title }}</h1>
+    <div class="meta">{{ .Date.Format "2006-01-02" }}</div>
+    <div class="content">
+        {{ .Content }}
+    </div>
+
+    {{ with .Params.download_link }}
+    <a href="{{ . }}" class="download-btn" download target="_blank">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        下载资源
+    </a>
+    {{ else }}
+    <p style="color:#a0aec0; margin-top:2rem;">⚠️ 该资源暂无下载链接</p>
+    {{ end }}
+</div>
+{{ end }}
