@@ -1,0 +1,100 @@
+{{ define "main" }}
+<style>
+    .honor-single {
+        max-width: 880px;
+        margin: 2.5rem auto;
+        padding: 0 1.5rem 4rem;
+    }
+
+    .honor-single .back-link {
+        display: inline-flex;
+        align-items: center;
+        font-size: 0.9rem;
+        color: #6b7280;
+        margin-bottom: 2rem;
+        transition: color 0.2s;
+        text-decoration: none;
+    }
+    .honor-single .back-link:hover {
+        color: #A31F34;
+    }
+
+    .honor-single h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #1f2937;
+        line-height: 1.2;
+        margin-bottom: 0.3rem;
+    }
+
+    .honor-single .date-meta {
+        color: #9ca3af;
+        font-size: 0.9rem;
+        border-bottom: 1px solid #e5e7eb;
+        padding-bottom: 1rem;
+        margin-bottom: 1.8rem;
+    }
+
+    .honor-single .featured-img {
+        width: 100%;
+        max-height: 500px;
+        object-fit: cover;
+        border-radius: 1rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    }
+
+    .honor-single .content {
+        font-size: 1.05rem;
+        line-height: 1.8;
+        color: #374151;
+    }
+
+    .honor-single .content p {
+        margin-bottom: 1.2rem;
+    }
+    .honor-single .content img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 0.75rem;
+        margin: 1.5rem 0;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    }
+
+    /* 响应式 */
+    @media (max-width: 640px) {
+        .honor-single h1 {
+            font-size: 1.8rem;
+        }
+        .honor-single .featured-img {
+            max-height: 300px;
+        }
+    }
+</style>
+
+<div class="honor-single">
+    <!-- 返回荣誉墙 -->
+    <a href="/honors/" class="back-link">
+        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+        返回荣誉墙
+    </a>
+
+    <!-- 标题 -->
+    <h1>{{ .Title }}</h1>
+
+    <!-- 日期（可选） -->
+    <div class="date-meta">{{ .Date.Format "2006-01-02" }}</div>
+
+    <!-- 特色图片 -->
+    {{ $img := .Params.featured_image | default "" }}
+    {{ if $img }}
+        {{ $img = $img | relURL }}
+        <img src="{{ $img }}" alt="{{ .Title }}" class="featured-img" loading="lazy">
+    {{ end }}
+
+    <!-- 正文内容（可包含文字、图片、列表等） -->
+    <div class="content">
+        {{ .Content }}
+    </div>
+</div>
+{{ end }}
