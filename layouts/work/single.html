@@ -2,19 +2,20 @@
 <style>
     .work-single {
         max-width: 800px;
-        margin: 2rem auto;
-        padding: 0 1.5rem;
+        margin: 0 auto;
+        padding: 6rem 1.5rem 4rem;
     }
     .work-single h1 {
-        font-size: 2.2rem;
+        font-size: 2.4rem;
         font-weight: 700;
         color: #1a202c;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.3rem;
+        line-height: 1.2;
     }
     .work-single .meta {
         color: #718096;
         font-size: 0.9rem;
-        border-bottom: 1px solid #e2e8f0;
+        border-bottom: 2px solid #f0f0f0;
         padding-bottom: 1rem;
         margin-bottom: 1.5rem;
     }
@@ -23,41 +24,118 @@
         line-height: 1.8;
         color: #2d3748;
     }
-    .work-single .download-btn {
+    .work-single .content p {
+        margin-bottom: 1rem;
+    }
+    .work-single .content img {
+        max-width: 100%;
+        border-radius: 0.75rem;
+        margin: 1rem 0;
+    }
+
+    /* 文件信息区域 */
+    .file-info {
+        margin-top: 2.5rem;
+        padding: 1.5rem 2rem;
+        background: #f7fafc;
+        border-radius: 1rem;
+        border-left: 4px solid #A31F34;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+    .file-info .file-name {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #1a202c;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+    }
+    .file-info .file-name svg {
+        width: 24px;
+        height: 24px;
+        color: #A31F34;
+    }
+    .file-info .file-size {
+        color: #718096;
+        font-size: 0.9rem;
+    }
+
+    .download-btn {
         display: inline-block;
-        margin-top: 2rem;
         background: #A31F34;
         color: white;
-        padding: 0.75rem 2rem;
+        padding: 0.75rem 2.2rem;
         border-radius: 50px;
         text-decoration: none;
         font-weight: 600;
-        transition: background 0.2s;
+        transition: background 0.2s, transform 0.15s;
+        box-shadow: 0 4px 10px rgba(163, 31, 52, 0.2);
     }
-    .work-single .download-btn:hover {
+    .download-btn:hover {
         background: #7a1627;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(163, 31, 52, 0.25);
     }
-    .work-single .download-btn svg {
+    .download-btn svg {
         display: inline-block;
         vertical-align: middle;
         margin-right: 0.5rem;
+    }
+
+    .no-download {
+        color: #a0aec0;
+        margin-top: 2rem;
+        padding: 1rem;
+        background: #f7fafc;
+        border-radius: 0.75rem;
+        text-align: center;
+    }
+
+    @media (max-width: 640px) {
+        .work-single h1 {
+            font-size: 1.8rem;
+        }
+        .file-info {
+            flex-direction: column;
+            align-items: flex-start;
+        }
     }
 </style>
 
 <div class="work-single">
     <h1>{{ .Title }}</h1>
     <div class="meta">{{ .Date.Format "2006-01-02" }}</div>
+
     <div class="content">
         {{ .Content }}
     </div>
 
+    <!-- 文件信息与下载 -->
     {{ with .Params.download_link }}
+    <div class="file-info">
+        <span class="file-name">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 3v4a1 1 0 001 1h4"/></svg>
+            {{ $fileName := $.Params.file_name | default "" }}
+            {{ if not $fileName }}
+                {{ $fileName = path.Base . }} <!-- 从链接提取文件名 -->
+            {{ end }}
+            {{ $fileName }}
+        </span>
+        {{ if $.Params.file_size }}
+        <span class="file-size">{{ $.Params.file_size }}</span>
+        {{ end }}
+    </div>
+
     <a href="{{ . }}" class="download-btn" download target="_blank">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         下载资源
     </a>
     {{ else }}
-    <p style="color:#a0aec0; margin-top:2rem;">⚠️ 该资源暂无下载链接</p>
+    <div class="no-download">⚠️ 该资源暂无下载链接</div>
     {{ end }}
 </div>
 {{ end }}
