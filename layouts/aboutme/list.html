@@ -1,0 +1,134 @@
+{{ define "main" }}
+<style>
+    /* 简介区域 */
+    .about-hero {
+        background: linear-gradient(135deg, #f5f0eb 0%, #e8e0d8 100%);
+        padding: 4rem 2rem;
+        border-radius: 1.5rem;
+        margin-bottom: 3rem;
+        box-shadow: 0 10px 30px -10px rgba(0,0,0,0.1);
+    }
+    .about-hero h1 {
+        font-size: 2.8rem;
+        font-weight: 700;
+        color: #2d2a24;
+        letter-spacing: -0.02em;
+        border-left: 6px solid #8C0000;
+        padding-left: 1.5rem;
+    }
+    .about-hero .content {
+        font-size: 1.15rem;
+        line-height: 1.8;
+        color: #3d3a34;
+        max-width: 800px;
+        margin-top: 1.5rem;
+    }
+    .about-hero .content p {
+        margin-bottom: 1rem;
+    }
+
+    /* 子页面卡片网格 */
+    .subpages-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 1.8rem;
+        margin-top: 2rem;
+    }
+    .subpage-card {
+        background: white;
+        border-radius: 1.2rem;
+        padding: 1.8rem 1.5rem;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        transition: all 0.3s ease;
+        border: 1px solid rgba(0,0,0,0.04);
+        text-align: center;
+    }
+    .subpage-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 20px 35px -8px rgba(140, 0, 0, 0.15);
+        border-color: #8C0000;
+    }
+    .subpage-card .icon {
+        font-size: 2.8rem;
+        margin-bottom: 0.6rem;
+    }
+    .subpage-card h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #1e1a16;
+        margin-bottom: 0.3rem;
+    }
+    .subpage-card p {
+        font-size: 0.9rem;
+        color: #6b6560;
+        line-height: 1.5;
+    }
+    .subpage-card a {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+    }
+    .section-title {
+        font-size: 1.8rem;
+        font-weight: 600;
+        color: #2d2a24;
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+    }
+    .section-title span {
+        background: #8C0000;
+        width: 6px;
+        height: 32px;
+        border-radius: 4px;
+        display: inline-block;
+    }
+    .subpage-desc {
+        color: #6b6560;
+        margin-bottom: 1.5rem;
+    }
+</style>
+
+<div class="max-w-5xl mx-auto px-4 py-12">
+    <!-- ====== 个人简介（核心模块） ====== -->
+    <div class="about-hero">
+        <h1>{{ .Title }}</h1>
+        <div class="content">
+            {{ .Content }}
+        </div>
+    </div>
+
+    <!-- ====== 三级子页面导航 ====== -->
+    {{ $subpages := where .Pages "Kind" "page" }}
+    {{ if $subpages }}
+    <div>
+        <div class="section-title">
+            <span></span> 更多关于我
+        </div>
+        <p class="subpage-desc">点击卡片深入了解我的各方面信息</p>
+        <div class="subpages-grid">
+            {{ range $subpages }}
+            <div class="subpage-card">
+                <a href="{{ .Permalink }}">
+                    {{/* 你可以为每个子页面自定义图标，这里通过判断标题添加 emoji */}}
+                    {{ $icon := "📄" }}
+                    {{ if in .Title "简历" }}{{ $icon = "📋" }}{{ end }}
+                    {{ if in .Title "联系" }}{{ $icon = "✉️" }}{{ end }}
+                    {{ if in .Title "研究" }}{{ $icon = "🔬" }}{{ end }}
+                    {{ if in .Title "下载" }}{{ $icon = "⬇️" }}{{ end }}
+                    <div class="icon">{{ $icon }}</div>
+                    <h3>{{ .Title }}</h3>
+                    {{ with .Summary }}
+                    <p>{{ . | truncate 40 }}</p>
+                    {{ else }}
+                    <p style="color:#aaa;">点击查看详情</p>
+                    {{ end }}
+                </a>
+            </div>
+            {{ end }}
+        </div>
+    </div>
+    {{ end }}
+</div>
+{{ end }}
