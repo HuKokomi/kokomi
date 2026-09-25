@@ -1,0 +1,151 @@
+{{ define "main" }}
+<style>
+    /* 列表页背景与标题 — 科研风格深蓝渐变 */
+    .research-header {
+        background:
+            linear-gradient(135deg, rgba(30, 41, 89, 0.85) 0%, rgba(66, 71, 130, 0.85) 100%),
+            url("/kokomi/research/background.jpg") center/cover no-repeat;
+    }
+    .research-header h1 {
+        text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    /* 卡片入场动画 */
+    @keyframes cardUp {
+        0% { opacity: 0; transform: translateY(30px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+    .research-card {
+        animation: cardUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+        transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1.2);
+    }
+    .research-card:nth-child(1) { animation-delay: 0.1s; }
+    .research-card:nth-child(2) { animation-delay: 0.2s; }
+    .research-card:nth-child(3) { animation-delay: 0.3s; }
+    .research-card:nth-child(4) { animation-delay: 0.4s; }
+    .research-card:nth-child(5) { animation-delay: 0.5s; }
+    .research-card:nth-child(6) { animation-delay: 0.6s; }
+
+    .research-card:hover {
+        transform: translateY(-6px) rotateX(1deg);
+        box-shadow: 0 20px 30px -10px rgba(30, 41, 89, 0.35), 0 0 0 2px rgba(30, 41, 89, 0.4);
+    }
+
+    .research-card .card-img {
+        transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .research-card:hover .card-img {
+        transform: scale(1.1);
+    }
+
+    /* 研究领域标签 */
+    .field-tag {
+        background: rgba(30, 41, 89, 0.1);
+        color: #1e2959;
+        border: 1px solid rgba(30, 41, 89, 0.2);
+        transition: all 0.3s;
+    }
+    .research-card:hover .field-tag {
+        background: #1e2959;
+        color: white;
+    }
+
+    /* 状态徽章 */
+    .status-badge {
+        font-size: 0.7rem;
+        padding: 0.2rem 0.6rem;
+        border-radius: 999px;
+        font-weight: 600;
+    }
+    .status-ongoing { background: #fef3c7; color: #92400e; }
+    .status-done { background: #d1fae5; color: #065f46; }
+    .status-published { background: #dbeafe; color: #1e40af; }
+
+    .read-more {
+        opacity: 0;
+        transform: translateX(10px);
+        transition: all 0.4s;
+    }
+    .research-card:hover .read-more {
+        opacity: 1;
+        transform: translateX(0);
+    }
+</style>
+
+<div class="research-header py-20 px-4 text-center text-white">
+    <div class="max-w-4xl mx-auto">
+        <span class="text-sm font-semibold tracking-widest uppercase opacity-70">Research & Projects</span>
+        <h1 class="text-4xl lg:text-5xl font-serif font-bold mt-3">科研动态</h1>
+        <p class="mt-4 text-white/60 max-w-xl mx-auto leading-relaxed">
+            探索未知，记录每一次思考与突破。科研路上，步履不停。
+        </p>
+    </div>
+</div>
+
+<div class="max-w-[1800px] mx-auto px-4 py-16">
+    {{/* 排序：先按 sticky 分组，再按 weight 降序 */}}
+    {{ $allPages := .Pages }}
+    {{ $stickyPages := where $allPages "Params.sticky" true }}
+    {{ $nonStickyPages := where $allPages "Params.sticky" "!=" true }}
+    {{ $sortedSticky := sort $stickyPages "Params.weight" "desc" }}
+    {{ $sortedNonSticky := sort $nonStickyPages "Params.weight" "desc" }}
+    {{ $pages := $sortedSticky | append $sortedNonSticky }}
+
+    {{ if $pages }}
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {{ range $pages }}
+        {{ $img := .Params.featured_image | default "/images/default-research.jpg" }}
+        {{ $img = replaceRE "^.*?/static/" "/" $img }}
+        {{ $img = $img | relURL }}
+        <div class="research-card bg-white rounded-xl overflow-hidden shadow-md flex flex-col">
+            <div class="relative h-56 overflow-hidden">
+                <div class="card-img absolute inset-0 bg-cover bg-center"
+                     style="background-image: url('{{ $img }}');"
+                     onerror="this.onerror=null; this.style.backgroundImage='url(\'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect width=%22100%25%22 height=%22100%25%22 fill=%22%23e2e8f0%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%2394a3b8%22 font-size=%2218%22%3E%E7%A7%91%E7%A0%94%3C/text%3E%3C/svg%3E\')';">
+                </div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+
+                {{/* 研究领域标签 */}}
+                {{ with .Params.field }}
+                <div class="absolute bottom-3 left-3 field-tag text-xs font-medium px-2 py-1 rounded-full">
+                    🔬 {{ . }}
+                </div>
+                {{ end }}
+
+                {{/* 状态徽章（右上角） */}}
+                {{ with .Params.status }}
+                <div class="absolute top-3 right-3">
+                    <span class="status-badge
+                        {{ if eq . "进行中" }}status-ongoing
+                        {{ else if eq . "已完成" }}status-done
+                        {{ else if eq . "已发表" }}status-published
+                        {{ end }}">
+                        {{ . }}
+                    </span>
+                </div>
+                {{ end }}
+            </div>
+            <div class="p-5 flex flex-col flex-1">
+                <span class="text-xs text-gray-400">{{ .Date.Format "2006-01-02" }}</span>
+                <h3 class="text-xl font-serif font-bold text-gray-900 mt-2 line-clamp-2">{{ .Title }}</h3>
+                {{ with .Summary }}
+                <p class="text-sm text-gray-500 mt-2 line-clamp-3 flex-1">{{ . }}</p>
+                {{ end }}
+                <div class="mt-4 flex items-center justify-between">
+                    <span class="read-more text-sm font-medium text-[#1e2959] flex items-center">
+                        阅读全文 <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    </span>
+                </div>
+            </div>
+            <a href="{{ .Permalink }}" class="absolute inset-0" aria-label="{{ .Title }}"></a>
+        </div>
+        {{ end }}
+    </div>
+    {{ else }}
+    <div class="text-center py-20 text-gray-400">
+        <p class="text-2xl">🔬 科研记录正在整理中</p>
+        <p class="mt-2">每一个问题，都值得深入探索。</p>
+    </div>
+    {{ end }}
+</div>
+{{ end }}

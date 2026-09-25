@@ -1,5 +1,5 @@
 ---
-title: "川甘青疆｜兰州"
+title: "川甘青疆Day2｜兰州"
 date: 2026-08-15
 draft: false
 featured_image: "travel/2026-lanzhou01/MVIMG_20260815_172407.jpg"
