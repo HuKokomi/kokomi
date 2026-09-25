@@ -1,5 +1,5 @@
 ---
-title: "皖赣线Day3 | 中国瓷都"
+title: "皖赣线 | 中国瓷都"
 date: 2026-07-09
 draft: false
 featured_image: "travel/2026-jingdezheng01/1bb8efe03cbe4668187cf0da515e528f.jpg"

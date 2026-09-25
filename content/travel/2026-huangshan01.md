@@ -1,5 +1,5 @@
 ---
-title: "皖赣线Day4｜黄山"
+title: "皖赣线｜黄山"
 date: 2026-07-10
 draft: false
 sticky: true

@@ -1,5 +1,5 @@
 ---
-title: "皖赣线Day5 | 西递宏村"
+title: "皖赣线 | 西递宏村"
 date: 2026-07-11
 draft: false
 featured_image: "travel/2026-huangshan02/a99c5c78d6eb9551bead6fe45fda7d0f.jpg"

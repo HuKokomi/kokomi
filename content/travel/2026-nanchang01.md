@@ -1,5 +1,5 @@
 ---
-title: "皖赣线Day1-2 | 英雄之城"
+title: "皖赣线 | 英雄之城"
 date: 2026-07-08
 draft: false
 featured_image: "travel/2026-nanchang01/8b9def194a3be892b516f8fe3683e9c6.jpg"
