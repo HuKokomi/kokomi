@@ -5,7 +5,7 @@ draft: false
 weight: 2
 categories: ["竞赛指导"]
 tags: ["挑战杯", "备赛方法论", "科技发明", "科研叙事"]
-featured_image: "/research/ChallengeCup/6edb786f5d1c7117465584aeca91ba68.png"
+featured_image: "research/ChallengeCup/6edb786f5d1c7117465584aeca91ba68.png"
 summary: "系统梳理“挑战杯”科技发明类竞赛的底层评审逻辑与汇报构建方法论，提出“闭环理念”、“学科力量”、“比较逻辑”、“市场思维”四大核心线索，并详解“讲故事、说技术、亮产品、谋商业、秀成就、上价值”的内容制作框架，为参赛团队提供兼具理论深度与实践指导意义的备赛指南。"
 ---
 
