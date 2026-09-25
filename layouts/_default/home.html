@@ -159,9 +159,8 @@
                 {{ $img = replaceRE "^.*?/static/" "/" $img }}
                 {{ $img = $img | relURL }}
                 <a href="{{ .Permalink }}" class="group block bg-white rounded-xl shadow-sm hover:shadow-xl transition-all duration-400 overflow-hidden border border-gray-100 hover:border-[#A31F34]/30 hover:-translate-y-2">
-                    <div class="aspect-[16/9] bg-gray-200 overflow-hidden relative">
-                        <img src="{{ $img }}" alt="{{ .Title }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                             onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22225%22%3E%3Crect width=%22100%25%22 height=%22100%25%22 fill=%22%23e2e8f0%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%2394a3b8%22 font-size=%2216%22%3E%E7%A7%91%E7%A0%94%E5%9B%BE%E7%89%87%3C/text%3E%3C/svg%3E';">
+                    <div class="bg-gray-200 overflow-hidden relative" style="aspect-ratio: 16/9;">
+                        <img src="{{ $img }}" alt="{{ .Title }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" ...>
                     </div>
                     <div class="p-4">
                         <h3 class="text-base font-serif font-bold text-gray-800 group-hover:text-[#A31F34] transition-colors line-clamp-2">{{ .Title }}</h3>
