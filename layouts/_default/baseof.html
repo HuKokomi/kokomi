@@ -39,13 +39,14 @@
     </style>
 </head>
 
-<header class="fixed top-0 left-0 w-full z-50 text-white shadow-md bg-gradient-to-b from-[#8C0000]/80 to-[#7e0000]/10">
-    <!-- 删除了工具链接行 -->
-    <!-- 主导航行 -->
-    <nav class="px-8 py-4 flex justify-between items-center">
+<header class="fixed top-0 left-0 w-full z-50 text-white shadow-md bg-gradient-to-b from-[#8C0000]/95 to-[#7e0000]/80 backdrop-blur-sm">
+    <nav class="px-4 md:px-8 py-3 md:py-4 flex justify-between items-center">
+        <!-- Logo -->
         <div class="flex items-center space-x-3">
-            <span class="text-2xl font-serif font-bold text-white tracking-wider">kokomi博客</span>
+            <a href="/" class="text-xl md:text-2xl font-serif font-bold text-white tracking-wider">kokomi博客</a>
         </div>
+
+        <!-- 桌面端菜单 -->
         <div class="hidden md:flex space-x-10 font-medium text-white/90">
             <a href="/" class="hover:text-purple-300 pb-1 font-bold">首页</a>
             <a href="/honors/" class="hover:text-purple-300 pb-1 font-bold">荣誉墙</a>
@@ -54,8 +55,32 @@
             <a href="/work/" class="hover:text-purple-300 pb-1 font-bold">资源中心</a>
             <a href="/about/" class="hover:text-purple-300 pb-1 font-bold">关于我</a>
         </div>
+
+        <!-- 移动端汉堡按钮 -->
+        <button id="menuBtn"
+                class="md:hidden flex flex-col justify-center items-center w-9 h-9 space-y-1.5 focus:outline-none"
+                aria-label="菜单" aria-expanded="false">
+            <span class="block w-6 h-0.5 bg-white transition-transform duration-300"></span>
+            <span class="block w-6 h-0.5 bg-white transition-opacity duration-300"></span>
+            <span class="block w-6 h-0.5 bg-white transition-transform duration-300"></span>
+        </button>
     </nav>
+
+    <!-- 移动端下拉菜单 -->
+    <div id="mobileMenu"
+         class="md:hidden overflow-hidden max-h-0 transition-all duration-300 ease-in-out bg-[#8C0000]/95 backdrop-blur-sm">
+        <div class="flex flex-col px-6 pb-4 space-y-1 text-white/95">
+            <a href="/"          class="py-3 border-b border-white/10 hover:text-purple-300 font-bold">首页</a>
+            <a href="/honors/"   class="py-3 border-b border-white/10 hover:text-purple-300 font-bold">荣誉墙</a>
+            <a href="/research/" class="py-3 border-b border-white/10 hover:text-purple-300 font-bold">科研动态</a>
+            <a href="/travel/"   class="py-3 border-b border-white/10 hover:text-purple-300 font-bold">旅行游记</a>
+            <a href="/work/"     class="py-3 border-b border-white/10 hover:text-purple-300 font-bold">资源中心</a>
+            <a href="/about/"    class="py-3 hover:text-purple-300 font-bold">关于我</a>
+        </div>
+    </div>
 </header>
+
+
 
     <!-- 主体内容区 -->
     <main class="flex-grow">
@@ -64,7 +89,7 @@
 
     <!-- 页脚保持不变（如有需要可继续保留） -->
     <footer class="bg-red text-white text-xs py-8 px-8 mt-12 text-center space-y-2">
-        <p class="font-serif tracking-widest text-sm">版权所有 © kokomi博客</p>
+        <p class="font-serif tracking-widest text-sm">版权所有kokomi博客</p>
         <p>地址：安徽省滁州市琅琊区</p>
         <p>技术支持：Hugo + VS Code + Tailwind CSS</p>
     </footer>
@@ -94,5 +119,42 @@
             });
         });
     </script>
+
+    <script>
+        // 移动端菜单开关
+        (function () {
+            const btn  = document.getElementById('menuBtn');
+            const menu = document.getElementById('mobileMenu');
+            if (!btn || !menu) return;
+
+            btn.addEventListener('click', () => {
+                const open = menu.style.maxHeight && menu.style.maxHeight !== '0px';
+                if (open) {
+                    menu.style.maxHeight = '0px';
+                    btn.setAttribute('aria-expanded', 'false');
+                } else {
+                    menu.style.maxHeight = menu.scrollHeight + 'px';
+                    btn.setAttribute('aria-expanded', 'true');
+                }
+            });
+
+            // 点击链接后自动收起
+            menu.querySelectorAll('a').forEach(a =>
+                a.addEventListener('click', () => {
+                    menu.style.maxHeight = '0px';
+                    btn.setAttribute('aria-expanded', 'false');
+                })
+            );
+
+            // 窗口拉大时重置
+            window.addEventListener('resize', () => {
+                if (window.innerWidth >= 768) {
+                    menu.style.maxHeight = '0px';
+                    btn.setAttribute('aria-expanded', 'false');
+                }
+            });
+        })();
+    </script>
+    
 </body>
 </html>
