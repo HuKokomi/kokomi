@@ -106,8 +106,18 @@
     }
 </style>
 
-{{ $img := .Params.featured_image | default "/images/default-research.jpg" }}
+<!-- {{ $img := .Params.featured_image | default "/images/default-research.jpg" }}
 {{ $img = replaceRE "^.*?/static/" "/" $img }}
+{{ $img = $img | relURL }} -->
+
+{{ $img := .Params.featured_image | default "/images/default-research.jpg" }}
+{{/* 去掉可能存在的 /static/ 前缀 */}}
+{{ $img = replaceRE "^.*?/static/" "/" $img }}
+{{/* 去掉可能被误加的 baseURL 路径前缀（例如 /kokomi） */}}
+{{ $img = replaceRE (printf "^/%s/" (strings.TrimPrefix "/" (strings.TrimSuffix "/" (urls.Parse site.BaseURL).Path))) "/" $img }}
+{{/* 如果缺少前导斜杠，自动补上 */}}
+{{ if not (hasPrefix $img "/") }}{{ $img = printf "/%s" $img }}{{ end }}
+{{/* 最后交给 relURL，统一加上 baseURL 前缀 */}}
 {{ $img = $img | relURL }}
 
 <!-- 头部大图 -->
