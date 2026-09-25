@@ -4,7 +4,7 @@ date: 2026-06-20
 draft: false
 math: true
 weight: 1
-featured_image: "research/CARLA01/584af3d5c8b943914e874c300cfe193c.png"
+featured_image: "/research/CARLA01/584af3d5c8b943914e874c300cfe193c.png"
 summary: "本研究基于Carla仿真平台，设计并实现了模型预测控制（MPC）的分层自适应巡航系统，在典型跟车场景中验证了其在稳定性、速度跟踪精度和乘坐舒适性方面均显著优于传统PID控制。"
 ---
 

@@ -159,9 +159,9 @@
                 {{ $img = replaceRE "^.*?/static/" "/" $img }}
                 {{ $img = $img | relURL }}
                 <a href="{{ .Permalink }}" class="group block bg-white rounded-xl shadow-sm hover:shadow-xl transition-all duration-400 overflow-hidden border border-gray-100 hover:border-[#A31F34]/30 hover:-translate-y-2">
-                    <div class="bg-gray-200 overflow-hidden relative" style="aspect-ratio: 16/9;">
-                        <img src="{{ $img }}" alt="{{ .Title }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" ...>
-                    </div>
+                <div class="bg-gray-200 overflow-hidden relative" style="aspect-ratio: 16/9;">
+                    <img src="{{ $img }}" alt="{{ .Title }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" ...>
+                </div>
                     <div class="p-4">
                         <h3 class="text-base font-serif font-bold text-gray-800 group-hover:text-[#A31F34] transition-colors line-clamp-2">{{ .Title }}</h3>
                         {{ with .Summary }}<p class="text-sm text-gray-500 mt-1 line-clamp-2">{{ . }}</p>{{ end }}
