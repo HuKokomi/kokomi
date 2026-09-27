@@ -15,7 +15,7 @@ summary: "共和国心脏"
 
 {{< figure src="/travel/2024-beijing01/IMG_20241109_121500.jpg" title="北航博物馆" width="80%" >}}
 
-{{< figure src="/travel/2024-beijing01/IMG_20241109_174402.jpg" title="天安门" width="80%" >}}
+{{< figure src="/travel/2024-beijing01/IMG_20241109_173754.jpg" title="天安门" width="80%" >}}
 
 {{< figure src="/travel/2024-beijing01/IMG_20241109_174402.jpg" title="新华门" width="80%" >}}
 
