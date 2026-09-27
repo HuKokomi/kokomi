@@ -1,5 +1,5 @@
 ---
-title: "川甘青疆Day6｜吐鲁番"
+title: "西游Day6｜吐鲁番"
 date: 2026-08-19
 draft: false
 featured_image: "travel/2026-tulufan01/MVIMG_20260819_140046.jpg"

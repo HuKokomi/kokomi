@@ -1,5 +1,5 @@
 ---
-title: "川甘青疆Day7｜兰州"
+title: "西游Day7｜兰州"
 date: 2026-08-20
 draft: false
 featured_image: "travel/2026-lanzhou02/MVIMG_20260820_170712.jpg"

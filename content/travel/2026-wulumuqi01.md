@@ -1,5 +1,5 @@
 ---
-title: "川甘青疆Day3｜乌鲁木齐"
+title: "西游Day3｜乌鲁木齐"
 date: 2026-08-16
 draft: false
 featured_image: "travel/2026-wulumuqi01/MVIMG_20260816_180354.jpg"

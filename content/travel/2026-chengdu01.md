@@ -1,5 +1,5 @@
 ---
-title: "川甘青疆Day8｜成都"
+title: "西游Day8｜成都"
 date: 2026-08-21
 draft: false
 featured_image: "travel/2026-chengdu01/MVIMG_20260821_140655.jpg"
